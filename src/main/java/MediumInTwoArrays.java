@@ -72,7 +72,7 @@ public class MediumInTwoArrays {
         if(nums1.length == 0) return findSimple(nums2);
         if(nums2.length == 0) return findSimple(nums1);
 
-        System.out.printf("************ %s - %s\n", arrayToString(nums1), arrayToString(nums2));
+        //System.out.printf("************ %s - %s\n", arrayToString(nums1), arrayToString(nums2));
 
         int totalNumber = nums1.length + nums2.length;
         boolean odd = totalNumber % 2 == 1;
@@ -130,16 +130,17 @@ public class MediumInTwoArrays {
                 }
             }
 
-            System.out.printf("{%d - %d}-----({%d - %d}), ({%d - %d})", am, bm, ai, aj, bi, bj);
-            System.out.printf("------(%d - %d), (%d - %d)\n", nums1[ai], nums1[aj], nums2[bi], nums2[bj]);
+            //System.out.printf("{%d - %d}-----({%d - %d}), ({%d - %d})", am, bm, ai, aj, bi, bj);
+            //System.out.printf("------(%d - %d), (%d - %d)\n", nums1[ai], nums1[aj], nums2[bi], nums2[bj]);
 
-            int min = Math.min(nums1[am], nums2[bm]);
-            int max = Math.max(nums1[am], nums2[bm]);
-            if(checkLeft(nums1, am - 1, nums2, bm - 1, min) && checkRight(nums1, am + 1, nums2, bm + 1, max)) {
-                return odd ? min : (double)(nums1[am] + nums2[bm])/2;
-            }
 
             if(nums1[am] <= nums2[bm]) {
+                int min = nums1[am];
+                int max = nums2[bm];
+                if(checkLeft(nums1, am - 1, nums2, bm - 1, min) && checkRight(nums1, am + 1, nums2, bm + 1, max)) {
+                    return odd ? min : (double)(nums1[am] + nums2[bm])/2;
+                }
+
                 ai = am;
                 if(bm - 1 >= 0 && nums1[am] < nums2[bm - 1]) {
                     ++ai;
@@ -166,6 +167,12 @@ public class MediumInTwoArrays {
                     bj = bm;
                 }
             } else {
+                int min = nums2[bm];
+                int max = nums1[am];
+                if(checkLeft(nums1, am - 1, nums2, bm - 1, min) && checkRight(nums1, am + 1, nums2, bm + 1, max)) {
+                    return odd ? min : (double)(nums1[am] + nums2[bm])/2;
+                }
+
                 bi = bm;
                 if(am - 1 >= 0 && nums2[bm] < nums1[am - 1]) {
                     ++bi;
@@ -194,7 +201,7 @@ public class MediumInTwoArrays {
             }
             adjusted = true;
 
-            System.out.printf("{%d - %d}-----({%d - %d}), ({%d - %d})\n", am, bm, ai, aj, bi, bj);
+            //System.out.printf("{%d - %d}-----({%d - %d}), ({%d - %d})\n", am, bm, ai, aj, bi, bj);
         }
     }
 
